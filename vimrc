@@ -14,7 +14,6 @@ Bundle 'scrooloose/nerdtree'
 Bundle 'spf13/vim-colors'
 Bundle 'altercation/vim-colors-solarized'
 Bundle 'flazz/vim-colorschemes'
-"Bundle 'nathanaelkane/vim-indent-guides'
 Bundle 'Yggdroot/indentLine'
 
 Bundle 'tpope/vim-surround'
@@ -25,7 +24,7 @@ Bundle 'vim-scripts/QuickName'
 
 Bundle 'ervandew/supertab'
 Bundle 'garbas/vim-snipmate'
-Bundle 'spf13/snipmate-snippets'
+Bundle 'YanhaoYang/snipmate-snippets'
 " Source support_function.vim to support snipmate-snippets.
 if filereadable(expand("~/.vim/bundle/snipmate-snippets/snippets/support_functions.vim"))
   source ~/.vim/bundle/snipmate-snippets/snippets/support_functions.vim
