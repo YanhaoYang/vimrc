@@ -12,12 +12,11 @@ Bundle 'tomtom/tlib_vim'
 Bundle 'MarcWeber/vim-addon-mw-utils'
 Bundle 'scrooloose/nerdtree'
 Bundle 'spf13/vim-colors'
-Bundle 'altercation/vim-colors-solarized'
 Bundle 'flazz/vim-colorschemes'
 Bundle 'Yggdroot/indentLine'
 
 Bundle 'tpope/vim-surround'
-Bundle 'AutoClose'
+Bundle 'jiangmiao/auto-pairs'
 Bundle 'kien/ctrlp.vim'
 Bundle 'Lokaltog/vim-easymotion'
 Bundle 'vim-scripts/QuickName'
@@ -131,7 +130,7 @@ augroup END
 
 let g:snipMate = {}
 let g:snipMate.scope_aliases = {}
-let g:snipMate.scope_aliases['ruby'] = 'ruby,ruby-rails,ruby-rspec,ruby-factorygirl'
+let g:snipMate.scope_aliases['ruby'] = 'ruby,ruby-rails,ruby-rspec,ruby-rspec3,ruby-factorygirl'
 
 " NerdTree {
 map <C-e> :NERDTreeToggle<CR>:NERDTreeMirror<CR>
@@ -245,6 +244,7 @@ au BufNewFile,BufRead *.{md,mkdn,markdown} set filetype=markdown
 
 set grepprg=vimgr
 map <leader>p :Preview<CR>
+map <F9> :cn<CR>
 highlight ColorColumn ctermbg=235 guibg=#2c2d27
 let &colorcolumn="80,100,".join(range(120,999),",")
 
