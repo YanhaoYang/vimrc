@@ -7,6 +7,11 @@ call vundle#rc()
 
 " let Vundle manage Vundle
 " required!
+Bundle 'bkad/CamelCaseMotion'
+Bundle 'tpope/vim-endwise'
+Bundle 'nelstrom/vim-textobj-rubyblock'
+Bundle 'kana/vim-textobj-user'
+
 Bundle 'gmarik/vundle'
 Bundle 'tomtom/tlib_vim'
 Bundle 'MarcWeber/vim-addon-mw-utils'
@@ -39,6 +44,7 @@ Bundle 'vim-coffee-script'
 
 Bundle 'leshill/vim-json'
 Bundle 'groenewege/vim-less'
+Bundle 'cakebaker/scss-syntax.vim'
 Bundle 'taxilian/vim-web-indent'
 Bundle 'greyblake/vim-preview'
 Bundle 'godlygeek/tabular'
@@ -147,8 +153,7 @@ let NERDTreeKeepTreeInNewTab=1
 
 " ctrlp {
 let g:ctrlp_working_path_mode = 2
-nnoremap <silent> <D-t> :CtrlP<CR>
-nnoremap <silent> <D-r> :CtrlPMRU<CR>
+nnoremap <silent> <leader>r :CtrlPMRU<CR>
 let g:ctrlp_custom_ignore = {
       \ 'dir':  '\.git$\|\.hg$\|\.svn$',
       \ 'file': '\.exe$\|\.so$\|\.dll$' }
@@ -250,3 +255,46 @@ let &colorcolumn="80,100,".join(range(120,999),",")
 
 " fix crontab: temp file must be edited in place
 set backupskip=/tmp/*,/private/tmp/*
+
+let g:syntastic_cpp_compiler_options = ' -std=c++11'
+
+map <silent> W <Plug>CamelCaseMotion_w
+map <silent> E <Plug>CamelCaseMotion_e
+map <silent> B <Plug>CamelCaseMotion_b
+omap <silent> iW <Plug>CamelCaseMotion_iw
+xmap <silent> iW <Plug>CamelCaseMotion_iw
+omap <silent> iE <Plug>CamelCaseMotion_ie
+xmap <silent> iE <Plug>CamelCaseMotion_ie
+omap <silent> iB <Plug>CamelCaseMotion_ib
+xmap <silent> iB <Plug>CamelCaseMotion_ib
+
+
+let g:session_yank_file="~/.vim_yank"
+map <silent> <Leader>y :call Session_yank()<CR>
+vmap <silent> <Leader>y y:call Session_yank()<CR>
+vmap <silent> <Leader>Y Y:call Session_yank()<CR>
+nmap <silent> <Leader>p :call Session_paste("p")<CR>
+nmap <silent> <Leader>P :call Session_paste("P")<CR>
+
+function Session_yank()
+  new
+  call setline(1,getregtype())
+  put
+  silent exec 'wq! ' . g:session_yank_file
+  exec 'bdelete ' . g:session_yank_file
+endfunction
+
+function Session_paste(command)
+  silent exec 'sview ' . g:session_yank_file
+  let l:opt=getline(1)
+  silent 2,$yank
+  if (l:opt == 'v')
+    call setreg('"', strpart(@",0,strlen(@")-1), l:opt) " strip trailing endline ?
+  else
+    call setreg('"', @", l:opt)
+  endif
+  exec 'bdelete ' . g:session_yank_file
+  exec 'normal ' . a:command
+endfunction
+
+runtime macros/matchit.vim
